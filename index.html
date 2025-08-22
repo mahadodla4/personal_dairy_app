@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Personal Diary</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- Adding a calendar library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Personal Journal</h1>
+            <div class="auth-container">
+                <!-- When not logged in -->
+                <div class="auth-buttons" id="authButtons">
+                    <button id="signInBtn" class="auth-btn">Sign In</button>
+                    <button id="signUpBtn" class="auth-btn">Sign Up</button>
+                </div>
+                <!-- When logged in -->
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span id="userNameDisplay">User</span>
+                    <button id="logoutBtn" class="auth-btn">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu">
+            <button id="newDiaryBtn" class="menu-btn">Add New Journal</button>
+            <button id="viewDiaryBtn" class="menu-btn">View Your Journals</button>
+            <button id="searchDiaryBtn" class="menu-btn">Search Your Journals</button>
+        </div>
+
+        <!-- New Journal Form Section -->
+        <div id="newDiarySection" class="section">
+            <h2>Create New Journal Entry</h2>
+            <form id="diaryForm">
+                <div class="form-group">
+                    <label for="diaryDate">Date:</label>
+                    <input type="date" id="diaryDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="diaryTitle">Title:</label>
+                    <input type="text" id="diaryTitle" placeholder="Enter journal title..." required>
+                </div>
+                <div class="form-group">
+                    <label for="pageColor">Day Type:</label>
+                    <select id="pageColor" required>
+                        <option value="#FFFFFF">📝 Regular Day</option>
+                        <option value="#E3F2FD">😊 Happy Day</option>
+                        <option value="#FFEBEE">😢 Sad Day</option>
+                        <option value="#FFF8E1">⭐ Important Day</option>
+                        <option value="#E8F5E9">✅ Productive Day</option>
+                        <option value="#F3E5F5">🎨 Creative Day</option>
+                    </select>
+                    <small class="form-help">Select the type of day to categorize your journal entry</small>
+                </div>
+                <div class="form-group">
+                    <label for="diaryContent">Your Thoughts:</label>
+                    <textarea id="diaryContent" rows="10" placeholder="Write your diary entry here..." required></textarea>
+                </div>
+                <button type="submit" class="btn">Save Entry</button>
+            </form>
+        </div>
+
+        <!-- View Journal Section -->
+        <div id="viewDiarySection" class="section">
+            <h2>Your Journal Entries</h2>
+            <div id="entriesList"></div>
+        </div>
+
+        <!-- Search Journal Section -->
+        <div id="searchDiarySection" class="section">
+            <h2>Search Your Journal</h2>
+            <div class="form-group">
+                <label for="searchDate">Select a Date:</label>
+                <input type="text" id="searchDate" placeholder="Click to select date...">
+            </div>
+            <div class="form-group">
+                <label for="searchDayType">Day Type:</label>
+                <select id="searchDayType">
+                    <option value="">All Day Types</option>
+                    <option value="#FFFFFF">📝 Regular Day</option>
+                    <option value="#E3F2FD">😊 Happy Day</option>
+                    <option value="#FFEBEE">😢 Sad Day</option>
+                    <option value="#FFF8E1">⭐ Important Day</option>
+                    <option value="#E8F5E9">✅ Productive Day</option>
+                    <option value="#F3E5F5">🎨 Creative Day</option>
+                </select>
+                <small class="form-help">Filter by day type or leave as "All Day Types" to search by date only</small>
+            </div>
+            <div class="form-group">
+                <button id="clearSearchBtn" class="btn">Clear Search</button>
+            </div>
+            <div id="searchResult"></div>
+        </div>
+
+        <!-- Diary Entry Viewer -->
+        <div id="diaryViewer" class="section">
+            <div id="viewerContent"></div>
+            <button id="backBtn" class="btn">Back</button>
+        </div>
+        
+        <!-- Welcome Section with Image and Quote -->
+        <div id="welcomeSection" class="section">
+            <div class="welcome-content">
+                <div class="welcome-image-container">
+                    <img src="static/images/journal1.jpg" alt="Welcome Image" class="welcome-image" id="welcomeImage">
+                </div>
+                <div class="quote-container">
+                    <p class="quote"></p>
+                    <p class="quote-author"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeSignIn">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signInForm">
+                <div class="form-group">
+                    <label for="signInEmail">Email:</label>
+                    <input type="email" id="signInEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signInPassword">Password:</label>
+                    <input type="password" id="signInPassword" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn">Sign In</button>
+                </div>
+                <div id="signInError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeSignUp">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signUpForm">
+                <div class="form-group">
+                    <label for="signUpName">Name:</label>
+                    <input type="text" id="signUpName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpEmail">Email:</label>
+                    <input type="email" id="signUpEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpPassword">Password:</label>
+                    <input type="password" id="signUpPassword" minlength="6" required>
+                    <small class="form-help">Password must be at least 6 characters</small>
+                </div>
+                <div class="form-group">
+                    <label for="signUpConfirmPassword">Confirm Password:</label>
+                    <input type="password" id="signUpConfirmPassword" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn">Create Account</button>
+                </div>
+                <div id="signUpError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+    
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
