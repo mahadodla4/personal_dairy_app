@@ -1,7 +1,8 @@
 # Personal Journal Application
 
 A secure personal journal application that allows you to create, view, search, and delete journal entries with backend storage and user authentication.
-**Webiste Link: ** https://personal-dairy-app.onrender.com/
+
+**Webiste Link:** https://personal-dairy-app.onrender.com/
 
 ## Features
 
