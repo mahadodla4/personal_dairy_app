@@ -34,17 +34,21 @@ router.get('/date/:date', authenticate, async (req, res) => {
 
 // Create a new journal entry
 router.post('/', authenticate, async (req, res) => {
+  const originalContent = req.body.content;
   const entry = new Journal({
     date: req.body.date,
     title: req.body.title,
     color: req.body.color,
-    content: req.body.content,
+    content: originalContent,
     user: req.userId
   });
 
   try {
     const newEntry = await entry.save();
-    res.status(201).json(newEntry);
+    // Return the entry with the original content
+    const entryObj = newEntry.toObject();
+    entryObj.content = originalContent;
+    res.status(201).json(entryObj);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

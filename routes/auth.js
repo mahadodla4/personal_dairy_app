@@ -10,7 +10,7 @@ const JWT_EXPIRY = process.env.JWT_EXPIRY || '7d';
 // Register a new user
 router.post('/register', async (req, res) => {
   try {
-    console.log('Registration request received:', req.body);
+    console.log('Registration request received from userName:', req.body.name);
     
     // Validate request body
     if (!req.body.name || !req.body.email || !req.body.password) {
