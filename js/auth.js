@@ -18,6 +18,12 @@ let signInForm;
 let signUpForm;
 let signInError;
 let signUpError;
+let changePasswordBtn;
+let changePasswordModal;
+let closeChangePassword;
+let changePasswordForm;
+let changePasswordError;
+let changePasswordSuccess;
 
 // Initialize auth functionality
 function initializeAuth() {
@@ -36,6 +42,12 @@ function initializeAuth() {
     signUpForm = document.getElementById('signUpForm');
     signInError = document.getElementById('signInError');
     signUpError = document.getElementById('signUpError');
+    changePasswordBtn = document.getElementById('changePasswordBtn');
+    changePasswordModal = document.getElementById('changePasswordModal');
+    closeChangePassword = document.getElementById('closeChangePassword');
+    changePasswordForm = document.getElementById('changePasswordForm');
+    changePasswordError = document.getElementById('changePasswordError');
+    changePasswordSuccess = document.getElementById('changePasswordSuccess');
 
     // Set up event listeners
     signInBtn.addEventListener('click', openSignInModal);
@@ -45,11 +57,15 @@ function initializeAuth() {
     closeSignUp.addEventListener('click', closeSignUpModal);
     signInForm.addEventListener('submit', handleSignIn);
     signUpForm.addEventListener('submit', handleSignUp);
+    changePasswordBtn.addEventListener('click', openChangePasswordModal);
+    closeChangePassword.addEventListener('click', closeChangePasswordModal);
+    changePasswordForm.addEventListener('submit', handleChangePassword);
 
     // Close modal when clicking outside
     window.addEventListener('click', (e) => {
         if (e.target === signInModal) closeSignInModal();
         if (e.target === signUpModal) closeSignUpModal();
+        if (e.target === changePasswordModal) closeChangePasswordModal();
     });
 
     // Check if user is already logged in
@@ -57,6 +73,60 @@ function initializeAuth() {
         fetchUserProfile();
     } else {
         updateAuthUI();
+    }
+}
+// Change Password Modal functions
+function openChangePasswordModal() {
+    changePasswordModal.style.display = 'block';
+    changePasswordForm.reset();
+    changePasswordError.textContent = '';
+    changePasswordSuccess.textContent = '';
+}
+
+function closeChangePasswordModal() {
+    changePasswordModal.style.display = 'none';
+    changePasswordForm.reset();
+    changePasswordError.textContent = '';
+    changePasswordSuccess.textContent = '';
+}
+
+// Handle change password form submission
+async function handleChangePassword(e) {
+    e.preventDefault();
+    const oldPassword = document.getElementById('oldPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+    if (newPassword !== confirmNewPassword) {
+        changePasswordError.textContent = 'New passwords do not match.';
+        changePasswordSuccess.textContent = '';
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/auth/change-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            },
+            body: JSON.stringify({ oldPassword, newPassword })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            changePasswordError.textContent = data.message || 'Failed to change password.';
+            changePasswordSuccess.textContent = '';
+        } else {
+            changePasswordError.textContent = '';
+            changePasswordSuccess.textContent = 'Password updated successfully!';
+            changePasswordForm.reset();
+            setTimeout(() => {
+                changePasswordModal.style.display = 'none';
+            }, 1500);
+        }
+    } catch (error) {
+        changePasswordError.textContent = 'Error: ' + (error.message || 'Unknown error.');
+        changePasswordSuccess.textContent = '';
     }
 }
 

@@ -22,6 +22,7 @@
                 <div class="user-info" id="userInfo" style="display: none;">
                     <span id="userNameDisplay">User</span>
                     <button id="logoutBtn" class="auth-btn">Logout</button>
+                    <button id="changePasswordBtn" class="change-pwd-btn">Change Password</button>
                 </div>
             </div>
         </div>
@@ -165,6 +166,33 @@
                     <button type="submit" class="btn">Create Account</button>
                 </div>
                 <div id="signUpError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeChangePassword">&times;</span>
+            <h2>Change Password</h2>
+            <form id="changePasswordForm">
+                <div class="form-group">
+                    <label for="oldPassword">Current Password:</label>
+                    <input type="password" id="oldPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirm New Password:</label>
+                    <input type="password" id="confirmNewPassword" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn">Update Password</button>
+                </div>
+                <div id="changePasswordError" class="error-message"></div>
+                <div id="changePasswordSuccess" class="success-message"></div>
             </form>
         </div>
     </div>
