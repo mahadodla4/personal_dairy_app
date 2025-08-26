@@ -7,7 +7,7 @@ const User = require('../models/User');
 
 // Environment variables
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
-const JWT_EXPIRY = process.env.JWT_EXPIRY || '7d';
+const JWT_EXPIRY = process.env.JWT_EXPIRY || '3h';
 
 // Register a new user
 router.post('/register', async (req, res) => {
