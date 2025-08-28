@@ -1,47 +1,47 @@
 # Personal Journal Application
 
-A secure personal journal application that allows you to create, view, search, and delete journal entries with backend storage and user authentication.
+A personal journal application that allows you to create, view, search, and delete journal entries with backend storage and user authentication.
 
 **Webiste Link:** https://personal-dairy-app.onrender.com/
 
 ## Features
 
 1. **User Authentication**
-   - Secure signup and login with JWT authentication
-   - Password encryption using bcrypt
-   - Protected routes for personal data
+   - Secure signup and login with JWT authentication.
+   - Password encryption using bcrypt.
+   - Protected routes for personal data.
 
 2. **Add New Journal Entry**
-   - Enter date, title, and select day type
-   - Write your journal content
-   - Save entries securely to your personal account
+   - Enter date, title, and select day type.
+   - Write your journal content.
+   - Save entries securely to your personal account.
 
 3. **View Your Journal**
    - See a list of all your journal entries
    - Entries are sorted by date (newest first)
    - Click on any entry to view its full content
-   - Only you can see your entries
+   - Only you can see your entries in webiste(in DB it is hashed).
 
 4. **Search Your Journal**
    - Use the calendar to find entries by date
    - Filter by day type (happy, sad, important)
-   - Quickly access specific journal pages
+   - Quickly access specific journal pages.
 
 5. **Delete Journal Entries**
-   - Remove entries you no longer want to keep
-   - Delete buttons available in both the list view and detail view
+   - Remove entries you no longer want to keep.
+   - Delete buttons available in both the list view and detail view.
 
 ## Technology Stack
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: HTML, CSS, JavaScript.
 - **Backend**: Node.js with Express.js
-- **Database**: MongoDB with Mongoose
-- **Authentication**: JWT (JSON Web Tokens) and bcrypt
-- **API**: RESTful API with protected routes
+- **Database**: MongoDB Atlas
+- **Authentication**: JWT (JSON Web Tokens) and bcrypt(for password hashing) and AES(for journal encryption and decryption).
+- **API**: RESTful API.
 
 ## Installation and Setup
 
 ### Prerequisites
-- Node.js (v14 or later)
+- Node.js.
 - MongoDB (local installation or MongoDB Atlas account)
 
 ### Setup Instructions
