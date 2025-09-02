@@ -26,7 +26,8 @@ function updateWelcomeImage() {
         '/static/images/p2.jpg',
         '/static/images/p3.jpg',
         '/static/images/p4.jpg',
-        '/static/images/p5.jpg'
+        '/static/images/p5.jpg',
+        '/static/images/p6.jpg'
     ];
     
     const randomImage = welcomeImages[Math.floor(Math.random() * welcomeImages.length)];
